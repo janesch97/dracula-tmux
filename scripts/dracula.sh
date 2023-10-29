@@ -148,7 +148,7 @@ main()
       IFS=' ' read -r -a colors  <<< $(get_tmux_option "@dracula-cwd-colors" "dark_gray white")
       tmux set-option -g status-right-length 250
       script="#($current_dir/cwd.sh)"
-    
+
     elif [ $plugin = "fossil" ]; then
       IFS=' ' read -r -a colors  <<< $(get_tmux_option "@dracula-fossil-colors" "green dark_gray")
       tmux set-option -g status-right-length 250
@@ -191,6 +191,10 @@ main()
     elif [ $plugin = "tmux-ram-usage" ]; then
       IFS=' ' read -r -a colors <<< $(get_tmux_option "@dracula-tmux-ram-usage-colors" "cyan dark_gray")
       script="#($current_dir/tmux_ram_info.sh)"
+
+    elif [ $plugin = "ngrok" ]; then
+      IFS=' ' read -r -a colors <<< $(get_tmux_option "@dracula-ngrok-colors" "green dark_gray")
+      script="#($current_dir/ngrok.sh)"
 
     elif [ $plugin = "network" ]; then
       IFS=' ' read -r -a colors <<< $(get_tmux_option "@dracula-network-colors" "cyan dark_gray")
