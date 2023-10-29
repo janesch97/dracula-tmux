@@ -8,8 +8,15 @@ source $current_dir/utils.sh
 get_ngrok_data()
 {
   tunnels=$(curl http://127.0.0.1:4040/api/tunnels --silent)
-  public_url=$(jq -r .tunnels[].public_url <<< "$tunnels" | head -n1)
-  echo $public_url
+  public_urls=$(jq -r .tunnels[].public_url <<< "$tunnels")
+  first_url=$(head -n1 <<< "$public_urls")
+  total=$(wc -l <<< "$public_urls")
+
+  if [ $total -gt 1 ]; then
+    echo "${first_url} +$(expr $total - 1)"
+  else
+    echo $first_url
+  fi
 }
 
 main()
